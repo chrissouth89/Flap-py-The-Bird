@@ -12,12 +12,14 @@ public class GameControl : MonoBehaviour
     public bool gameOver = false;
     public float scrollSpeed = -1.5f;
     public Text scoreText;
+    public Text highScore;
 
-    private int score = 0;
+    public int score = 0;
+    // public int highScore = 0;
 
-    // Start is called before the first frame update
     void Awake ()
     {
+
         if (instance == null)
         {
             instance = this;
@@ -28,7 +30,11 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        highScore.text = "Highscore: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
+    }
+    
     void Update ()
     {
         if (gameOver == true && Input.GetMouseButtonDown(0))
@@ -51,5 +57,11 @@ public class GameControl : MonoBehaviour
     {
         gameOverText.SetActive(true);
         gameOver = true;
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.Save();
+        }
+        highScore.text = "Highscore: " + PlayerPrefs.GetInt("HighScore", 0);
     }
 }
