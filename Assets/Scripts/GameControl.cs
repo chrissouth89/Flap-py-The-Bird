@@ -14,12 +14,11 @@ public class GameControl : MonoBehaviour
     public Text scoreText;
     public Text highScore;
 
-    public int score = 0;
+    private int score = 0;
     // public int highScore = 0;
 
     void Awake ()
     {
-
         if (instance == null)
         {
             instance = this;
